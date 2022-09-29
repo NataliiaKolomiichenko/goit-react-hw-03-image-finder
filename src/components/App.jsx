@@ -20,8 +20,6 @@ export class App extends Component {
   async componentDidUpdate(_, prevState) {
     const { query, page } = this.state;
     if (prevState.page !== page || prevState.query !== query) {
-      console.log(prevState.query);
-      console.log(query);
       try {
         this.loadingChange()
       const data = await fetchImages(query, page)
