@@ -1,11 +1,16 @@
 import css from "./Modal.module.css"
 import { Component } from "react";
 import { createPortal } from "react-dom";
+import PropTypes from "prop-types"
 
 const modalRoot = document.querySelector('#modal-root');
 
-
 class Modal extends Component {
+
+  static propTypes = {
+    onToggle: PropTypes.func.isRequired,
+    largeImage: PropTypes.string
+    }
 
     handleKeyDown = event => {
     if (event.code === 'Escape') {
@@ -13,19 +18,24 @@ class Modal extends Component {
     }
   };
 
-
   componentDidMount() {
     window.addEventListener('keydown', this.handleKeyDown);
   }
 
   componentWillUnmount() {
     window.removeEventListener('keydown', this.handleKeyDown);
+  }
+  
+  handleBackdrop = (event) => {
+    if (event.currentTarget === event.target) {
+      this.props.onToggle()
     }
+  }
     
     render() {
-      const { onToggle, largeImage } = this.props;
+      const { largeImage } = this.props;
       return (createPortal(
-          <div className={css.overlay} onClick={onToggle}>
+          <div className={css.overlay} onClick={this.handleBackdrop}>
                 <div className={css.modal}>
                     <img src={largeImage} alt="" />
                 </div>

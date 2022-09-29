@@ -20,7 +20,8 @@ export class App extends Component {
   async componentDidUpdate(_, prevState) {
     const { query, page } = this.state;
     if (prevState.page !== page || prevState.query !== query) {
-
+      console.log(prevState.query);
+      console.log(query);
       try {
         this.loadingChange()
       const data = await fetchImages(query, page)
@@ -42,17 +43,15 @@ export class App extends Component {
 
   handleSubmit = (event) => {
     event.preventDefault();
+    if (this.state.query === event.target.elements.query.value) {
+      return
+    }
+
     this.setState({
       page: 1,
       query: event.target.elements.query.value,
       images: [],
     })
-  }
-
-  handleChange = () => {
-    this.setState(prevState => ({
-      query: prevState.query,
-    }))
   }
 
   loadMore = () => {
