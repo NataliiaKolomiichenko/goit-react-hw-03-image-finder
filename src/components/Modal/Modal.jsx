@@ -9,7 +9,7 @@ class Modal extends Component {
 
   static propTypes = {
     onToggle: PropTypes.func.isRequired,
-    largeImage: PropTypes.string
+    largeImage: PropTypes.string.isRequired,
     }
 
     handleKeyDown = event => {
